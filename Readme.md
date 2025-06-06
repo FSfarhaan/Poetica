@@ -36,7 +36,7 @@
 1. Clone this repository:
 
 ```bash
-git clone https://github.com/yourusername/kavitaverse.git
+git clone https://github.com/FSFarhaan/poetica.git
 ```
 
 2. Open `index.html` directly in a browser — no build tools needed!
