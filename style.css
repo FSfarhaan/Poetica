@@ -1,0 +1,55 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu&display=swap");
+
+.font-playfair {
+  font-family: "Playfair Display", serif;
+}
+.font-mukta {
+  font-family: "Mukta", sans-serif;
+}
+.font-nastaliq {
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+
+.urdu-text {
+  direction: rtl;
+  font-family: "Noto Nastaliq Urdu", serif;
+}
+
+.animate-fade-in {
+  animation: fadeIn 1s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.text-poetry-brown {
+  color: #8B7355
+}
+.text-poetry-text {
+  color: #4a4035cc;
+}
+.selected {
+  color: white;
+  background-color: #92400e;
+  /* padding: 1rem 2rem; */
+  border-radius: .5rem;
+}
+
+.poetry-card {
+  background: linear-gradient(135deg, #fef8f3 0%, #f5f0ea 100%);;
+}
+
+.tab-selected {
+  background-color: #5B3E31;
+}

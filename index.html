@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poetica - A Universe of Poetry</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Merriweather:wght@300;400;700&family=Mukta:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Nastaliq+Urdu:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- GSAP CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="index.js"></script>
+
+</head>
+
+<body>
+
+    <!-- Navbar Section -->
+    <nav class="fixed top-0 w-full z-50 glass-effect border-b border-poetry-beige/30 font-serif bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+
+                <!-- Logo -->
+                <div class="flex items-center space-x-2">
+                    <!-- Replace with actual icon or image -->
+                    <svg class="h-8 w-8 text-poetry-brown" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M4 4h12v2H4V4zm0 4h12v2H4V8zm0 4h8v2H4v-2z" />
+                    </svg>
+                    <span class="text-xl font-bold text-poetry-brown ">Poetica</span>
+                </div>
+
+                <!-- Navigation Links -->
+                <div class="hidden md:flex space-x-8">
+                    <a href="#poetry-of-day"
+                        class="nav-link text-poetry-text hover:text-poetry-brown transition-colors duration-200">Poetry of the
+                        Day</a>
+                    <a href="#featured-poets"
+                        class="nav-link text-poetry-text hover:text-poetry-brown transition-colors duration-200">Featured
+                        Poets</a>
+                    <a href="#collections"
+                        class="nav-link text-poetry-text hover:text-poetry-brown transition-colors duration-200">Collections</a>
+                </div>
+
+                <!-- Language Toggle -->
+                <div class="flex space-x-1 rounded-lg p-1 bg-[#E8D5C4]/50" id="lang-toggle">
+                    <button class="px-3 py-1 rounded-md text-sm bg-poetry-brown selected" data-lang="en">EN</button>
+                    <button class="px-3 py-1 rounded-md text-sm text-poetry-text" data-lang="hi">हि</button>
+                    <button class="px-3 py-1 rounded-md text-sm text-poetry-text" data-lang="ur">اردو</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Hero section -->
+    <section class="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <!-- Background -->
+        <div class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style="background-image: url('https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');">
+            <div class="absolute inset-0 bg-gradient-to-br from-stone-100/70 via-stone-200/90 to-amber-900/40"></div>
+        </div>
+
+        <!-- Content -->
+        <div id="hero-content"
+            class="relative z-10 text-center max-w-4xl mx-auto px-4 font-playfair animate-fade-in mt-16">
+            <h1 class="text-5xl md:text-8xl font-bold text-yellow-800 mb-0" id="site-title"></h1>
+            <p class="md:text-xl text-md text-poetry-text mb-8" id="tagline"></p>
+
+            <!-- Quote -->
+            <blockquote class="text-xl md:text-2xl leading-none text-yellow-900 mb-8 text-center max-w-2xl mx-auto"
+                id="quote">
+                <span class="md:text-3xl text-2xl text-brown-600 leading-none">"</span>
+                <span id="quote-text"></span>
+                <span class="md:text-3xl text-2xl text-brown-600 leading-none">"</span>
+            </blockquote>
+            <cite class="text-lg text-yellow-800 font-medium" id="quote-author"></cite>
+
+            <!-- CTA Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12" id="cta-buttons">
+                <a href="#collections">
+                    <button
+                        class="px-8 py-3 bg-yellow-800 text-white rounded-full hover:bg-yellow-900 transition-all duration-500 hover:scale-105 shadow-lg w-48"
+                        id="cta1"></button>
+                </a>
+                <a href="#">
+                    <button
+                    class="px-8 py-3 border-2 border-yellow-800 text-yellow-800 rounded-full hover:bg-yellow-800 hover:text-white transition-all duration-500 hover:scale-105 w-48"
+                    id="cta2"></button>
+                </a>
+            </div>
+        </div>
+
+        <!-- Decorative Scroll Cue -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <div class="w-6 h-10 border-2 border-yellow-800 rounded-full flex justify-center">
+                <div class="w-1 h-3 bg-yellow-800 rounded-full mt-2 animate-pulse"></div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Poetry of the day section -->
+    <section id="poetry-of-day" class="py-20 bg-gradient-to-br from-white via-[#F5F0EA] to-amber-900/30 font-playfair">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div id="poetry-of-day-title" class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-poetry-brown mb-4">Poetry of the Day</h2>
+                <div class="w-24 h-1 bg-[#E8D5C4] mx-auto"></div>
+            </div>
+
+            <div id="poetry-of-day-card" class="bg-white rounded-2xl p-8 md:p-12 shadow-xl hover:scale-105 transition-transform duration-500">
+                <div id="poem-content" class="text-left">
+                    <h3 id="poem-title" class="text-2xl md:text-3xl font-bold text-poetry-brown mb-4">Poem Title</h3>
+                    <div id="poem-excerpt"
+                        class="text-lg md:text-xl leading-relaxed text-poetry-text mb-6 whitespace-pre-line">Poem
+                        excerpt goes here...</div>
+
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <p id="poem-author" class="text-poetry-brown font-medium">— Poet Name</p>
+                            <span id="poem-category"
+                                class="inline-block px-3 py-1 bg-[#E8D5C4]/30 text-poetry-brown text-sm rounded-full mt-2">Category</span>
+                        </div>
+                        <button
+                            class="px-6 py-2 bg-yellow-800 text-white rounded-full hover:bg-yellow-900 transition-all duration-500 hover:scale-110">
+                            Read Full
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Featured Poets section  -->
+    <section id="featured-poets" class="py-20 bg-[#FEF8F3] font-playfair">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-poetry-brown mb-4">Featured Poets</h2>
+                <div class="w-24 h-1 bg-[#E8D5C4] mx-auto"></div>
+            </div>
+
+            <div id="poets-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" >
+                <div class="bg-white rounded-2xl p-6 shadow-lg transform transition-all duration-500 hover:scale-105"
+                    style="animation-delay: 0.4s;">
+                    <div class="text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1472396961693-142e6e269027?w=300&h=300&fit=crop"
+                                alt="Robert Frost"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+
+                        <h3 class="text-xl font-bold text-poetry-brown mb-2 text-left">
+                            Robert Frost
+                        </h3>
+
+                        <p class="text-poetry-text mb-4 text-left">
+                            American poet known for his realistic depictions of rural life.
+                        </p>
+
+                        <span class="inline-block px-3 py-1 text-xs rounded-full mb-4 bg-blue-100 text-blue-800">
+                            English
+                        </span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg transform transition-all duration-500 hover:scale-105"
+                    style="animation-delay: 0.4s;">
+                    <div class="text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1482938289607-e9573fc25ebb?w=300&h=300&fit=crop"
+                                alt="Robert Frost"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+
+                        <h3 class="text-xl font-bold text-poetry-brown mb-2 text-left">
+                            Robert Frost
+                        </h3>
+
+                        <p class="text-poetry-text mb-4 text-left">
+                            American poet known for his realistic depictions of rural life.
+                        </p>
+
+                        <span class="inline-block px-3 py-1 text-xs rounded-full mb-4 bg-blue-100 text-blue-800">
+                            English
+                        </span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-2xl p-6 shadow-lg transform transition-all duration-500 hover:scale-105">
+                    <div class="text-center">
+                        <div class="w-24 h-24 rounded-full mx-auto mb-4 overflow-hidden shadow-lg">
+                            <img src="https://images.unsplash.com/photo-1607746882042-944635dfe10e?w=300&h=300&fit=crop"
+                                alt="Robert Frost"
+                                class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                        </div>
+
+                        <h3 class="text-xl font-bold text-poetry-brown mb-2 text-left">
+                            Robert Frost
+                        </h3>
+
+                        <p class="text-poetry-text mb-4 text-left">
+                            American poet known for his realistic depictions of rural life.
+                        </p>
+
+                        <span class="inline-block px-3 py-1 text-xs rounded-full mb-4 bg-blue-100 text-blue-800">
+                            English
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Poetry Collections section -->
+    <section id="collections" class="py-20 bg-gradient-to-br from-amber-900/20 via-amber-900/10 to-[#F5F0EA] font-playfair">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-poetry-brown mb-4">Poetry Collections</h2>
+                <div class="w-24 h-1 bg-[#E8D5C4] mx-auto"></div>
+            </div>
+
+            <!-- Category Tabs -->
+            <div class="flex  justify-center gap-4 mb-12">
+                <button
+                    class="category-button px-4 py-3 rounded-full transition-all duration-500 text-white shadow-lg scale-105 bg-yellow-800"
+                    data-category="love">Love</button>
+                <button
+                    class="category-button px-4 py-3 rounded-full transition-all duration-500 bg-[#FEF8F3]/50 text-[#5B3E31] hover:bg-[#FEF8F3]"
+                    data-category="nature">Nature</button>
+                <button
+                    class="category-button px-4 py-3 rounded-full transition-all duration-500 bg-[#FEF8F3]/50 text-[#5B3E31] hover:bg-[#FEF8F3]"
+                    data-category="spiritual">Spiritual</button>
+            </div>
+
+            <!-- Poetry Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="rounded-2xl p-6 bg-white shadow-lg border border-[#FEF8F3]/50">
+                    <div class="text-left">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-lg font-bold text-[#5B3E31] line-clamp-2 flex-1">The Road Not Taken</h3>
+                            <button class="ml-2 p-1 text-[#F5C5B8] hover:text-red-500 transition-colors">
+                                ❤️
+                            </button>
+                        </div>
+                        <div class="text-[#5B3E31] mb-4 text-sm leading-relaxed line-clamp-4 whitespace-pre-line">
+                            Two roads diverged in a yellow wood, And sorry I could not travel both...
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-[#5B3E31] font-medium text-sm">— Robert Frost</p>
+                                <span
+                                    class="inline-block px-2 py-1 bg-[#F5C5B8]/20 text-[#5B3E31] text-xs rounded-full mt-1">
+                                    Nature
+                                </span>
+                            </div>
+                            <button
+                                class="px-4 py-2 bg-yellow-800 text-white text-sm rounded-full hover:bg-[#5B3E31]/90 transition-all duration-500 hover:scale-105">
+                                Read Full
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Repeat poetry card for each poem -->
+            </div>
+
+            <!-- No poems message -->
+            <div class="text-center py-12 hidden">
+                <p class="text-[#5B3E31] text-lg">
+                    No poems found in this category for the selected language.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!--  Footer section -->
+    <footer id="footer" class="bg-[#8B7355] text-white py-16 font-playfair">
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <!-- About Section -->
+                <div class="text-left">
+                    <h3 class="text-2xl font-bold mb-4">Poetica</h3>
+                    <p class="text-white/80 mb-4">
+                        A digital sanctuary for poetry lovers, celebrating the beauty of words across languages and
+                        cultures.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="text-left">
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-white/80">
+                        <li>
+                            <a href="#poetry-of-day" class="hover:text-white transition-colors">Poetry of the Day</a>
+                        </li>
+                        <li>
+                            <a href="#featured-poets" class="hover:text-white transition-colors">Featured Poets</a>
+                        </li>
+                        <li>
+                            <a href="#collections" class="hover:text-white transition-colors">Collections</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Social Links -->
+                <div class="text-left">
+                    <h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-white/80 hover:text-white transition-colors hover:scale-110 transform">
+                            <!-- Instagram Icon -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zM12 7.25a4.75 4.75 0 110 9.5 4.75 4.75 0 010-9.5zm6.25-.5a1.25 1.25 0 11-2.5 0 1.25 1.25 0 012.5 0zM12 8.75a3.25 3.25 0 100 6.5 3.25 3.25 0 000-6.5z">
+                                </path>
+                            </svg>
+                        </a>
+                        <a href="#" class="text-white/80 hover:text-white transition-colors hover:scale-110 transform">
+                            <!-- YouTube Icon -->
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M21.8 8s-.2-1.5-.8-2.2c-.7-.9-1.5-1-1.9-1.1C15.6 4.5 12 4.5 12 4.5h-.1s-3.6 0-7 .2c-.5 0-1.2.2-1.9 1.1C2.2 6.5 2 8 2 8S2 9.6 2 11.2v1.6C2 14.4 2.2 16 2.2 16s.2 1.5.8 2.2c.7.9 1.7.9 2.2 1 1.6.2 6.8.3 6.8.3s3.6 0 7-.2c.5 0 1.2-.2 1.9-1.1.6-.7.8-2.2.8-2.2s.2-1.6.2-3.2V11.2c0-1.6-.2-3.2-.2-3.2zM9.75 14.25V9.75l4.5 2.25-4.5 2.25z">
+                                </path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Section -->
+            <div class="border-t border-white/20 mt-12 pt-8 text-center">
+                <p class="text-white/80 flex items-center justify-center gap-2 mb-2">
+                    <span id="made-with-text">Made with</span>
+                    <svg class="w-4 h-4 text-red-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+                        <path
+                            d="M3.172 5.172a4 4 0 015.656 0L10 6.343l1.172-1.171a4 4 0 115.656 5.656L10 17.657l-6.828-6.829a4 4 0 010-5.656z" />
+                    </svg>
+                    by Farhaan
+                </p>
+                <p class="text-white/60 text-sm" id="copyright-text">
+                    © 2025 Poetica. All rights reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Poem Modal -->
+    <div id="poem-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-start mb-6">
+                <h2 id="modal-title" class="text-2xl font-bold text-[#5B3E31]"></h2>
+                <button id="close-modal" class="text-[#5B3E31] hover:text-red-500 transition-colors">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
+            <div id="modal-poem" class="text-[#5B3E31] whitespace-pre-line mb-6"></div>
+            <div class="flex justify-between items-center">
+                <div>
+                    <p id="modal-author" class="text-[#5B3E31] font-medium"></p>
+                    <span id="modal-category"
+                        class="inline-block px-3 py-1 bg-[#F5C5B8]/20 text-[#5B3E31] text-sm rounded-full mt-2"></span>
+                </div>
+                <button class="ml-2 p-2 text-[#F5C5B8] hover:text-red-500 transition-colors">
+                    ❤️
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
